@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>토지경계면 분쟁 | 사진자료 제출(요지 및 PDF)</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#f5f7fb;
+      --card:#ffffff;
+      --line:rgba(0,0,0,.08);
+    }
+    body{ background:var(--bg); }
+    .wrap{ max-width: 980px; }
+    .card{
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: 0 10px 28px rgba(0,0,0,.06);
+      background: var(--card);
+    }
+    .muted{ color:#6c757d; }
+    .chip{
+      display:inline-flex; align-items:center; gap:.4rem;
+      padding:.35rem .7rem; border-radius: 999px;
+      background: rgba(13,110,253,.10);
+      color:#0d6efd; font-weight:600; font-size:.9rem;
+    }
+    .pdf-wrap{
+      width:100%;
+      height: min(78vh, 860px);
+      border-radius: 16px;
+      overflow:hidden;
+      border: 1px solid var(--line);
+      background:#fff;
+    }
+    .pdf-wrap iframe{ width:100%; height:100%; border:0; }
+
+    /* top actions */
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(245,247,251,.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+
+    /* compact form look */
+    .form-control, .form-select{
+      border-radius: 12px;
+      border-color: rgba(0,0,0,.12);
+    }
+    .form-label{ font-weight:600; }
+    .summary-item{
+      border:1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px 14px;
+      background: #fff;
+    }
+    .summary-no{
+      width: 34px; height: 34px;
+      border-radius: 10px;
+      display:flex; align-items:center; justify-content:center;
+      font-weight:800;
+      background: rgba(25,135,84,.10);
+      color:#198754;
+      flex: 0 0 auto;
+    }
+
+    /* print */
+    @media print{
+      body{ background:#fff; }
+      .topbar, .no-print{ display:none !important; }
+      .card{ box-shadow:none; }
+      .pdf-wrap{ height: 85vh; }
+      a[href]:after{ content:""; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Sticky top actions -->
+  <div class="topbar no-print py-2">
+    <div class="container wrap d-flex align-items-center justify-content-between gap-2">
+      <div class="d-flex align-items-center gap-2 flex-wrap">
+        <span class="chip">법원 제출용</span>
+        <span class="badge text-bg-light rounded-pill px-3 py-2">토지경계면 분쟁</span>
+      </div>
+      <div class="d-flex gap-2">
+        <a class="btn btn-primary btn-sm"
+           href="https://seolhopro.mycafe24.com/sogori/sogori334_20260214.pdf"
+           target="_blank" rel="noopener">
+          PDF 열기
+        </a>
+        <a class="btn btn-outline-secondary btn-sm"
+           href="https://seolhopro.mycafe24.com/sogori/sogori334_20260214.pdf"
+           download>
+          다운로드
+        </a>
+        <button class="btn btn-outline-dark btn-sm" type="button" onclick="window.print()">
+          인쇄
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <main class="container wrap py-4 py-md-5">
+    <!-- Header -->
+    <div class="mb-4">
+      <h1 class="fw-bold mb-2">사진자료 제출 페이지</h1>
+      <div class="muted">
+        사진자료 요지와 첨부 PDF를 동일 화면에서 열람할 수 있도록 구성했습니다.
+        <span class="d-block">※ 모바일(iOS Safari 등)에서 PDF가 안 보이면 상단의 <b>PDF 열기</b> 버튼을 사용하세요.</span>
+      </div>
+    </div>
+
+    <!-- Case info (optional fields) -->
+    <div class="card mb-4">
+      <div class="card-body p-4">
+        <div class="d-flex align-items-start justify-content-between flex-wrap gap-2 mb-3">
+          <div>
+            <h5 class="fw-semibold mb-1">기본 정보</h5>
+            <div class="muted">필요 시 입력 후 인쇄하여 제출용 표지로 활용할 수 있습니다.</div>
+          </div>
+          <span class="badge text-bg-light rounded-pill px-3 py-2">작성/정리용</span>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label class="form-label" for="caseNo">사건번호</label>
+            <input class="form-control" id="caseNo" placeholder="예: 2026가단12345">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label" for="court">법원</label>
+            <input class="form-control" id="court" placeholder="예: ○○지방법원">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label" for="submitDate">제출일자</label>
+            <input class="form-control" id="submitDate" placeholder="예: 2026-02-14">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="partyA">원고</label>
+            <input class="form-control" id="partyA" placeholder="원고 성명/명칭">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label" for="partyB">피고</label>
+            <input class="form-control" id="partyB" placeholder="피고 성명/명칭">
+          </div>
+
+          <div class="col-12">
+            <label class="form-label" for="note">비고(선택)</label>
+            <textarea class="form-control" id="note" rows="2" placeholder="예: 현장 확인일, 참고사항 등"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="card mb-4">
+      <div class="card-body p-4">
+        <div class="d-flex align-items-start justify-content-between flex-wrap gap-2 mb-3">
+          <div>
+            <h5 class="fw-semibold mb-1">| 요지 |</h5>
+            <div class="muted">사진자료 전체의 핵심 내용 요약</div>
+          </div>
+          <span class="badge text-bg-success rounded-pill px-3 py-2">정리본</span>
+        </div>
+
+        <div class="d-grid gap-3">
+          <div class="summary-item d-flex gap-3">
+            <div class="summary-no">1</div>
+            <div>
+              <div class="fw-semibold mb-1">배수로 및 배수관 설치 관련</div>
+              <div>
+                경계선 인입 배수로 설치 및 피고측 토지내 배수로 설치,
+                관통하여 개천으로 이어지는 배수관 설치.
+              </div>
+            </div>
+          </div>
+
+          <div class="summary-item d-flex gap-3">
+            <div class="summary-no">2</div>
+            <div>
+              <div class="fw-semibold mb-1">경계선 침범 설치물·잡동사니 제거</div>
+              <div>
+                경계선 등 원고측 주장 경계선을 넘어 설치된 그물망 펜스 등,
+                비닐·장판 등 잡동사니 제거.
+              </div>
+            </div>
+          </div>
+
+          <div class="summary-item d-flex gap-3">
+            <div class="summary-no">3</div>
+            <div>
+              <div class="fw-semibold mb-1">그물막·펜스 원상 이동(제거) 완료</div>
+              <div>
+                경계선 또는 원고측 주장 원고측 토지로 넘어간 그물막 등 펜스를
+                피고측 토지 내로 이동(제거) 완료.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="my-4">
+
+        <div class="row g-2 align-items-center">
+          <div class="col-lg-8">
+            <div class="muted">
+              첨부 PDF: <b>sogori334_20260214.pdf</b>
+              <span class="d-block">※ 화면에 PDF가 표시되지 않을 경우 상단 <b>PDF 열기</b> 버튼으로 확인하세요.</span>
+            </div>
+          </div>
+          <div class="col-lg-4 text-lg-end no-print">
+            <a class="btn btn-outline-primary w-100 w-lg-auto"
+               href="https://seolhopro.mycafe24.com/sogori/sogori334_20260214.pdf"
+               target="_blank" rel="noopener">
+              PDF 새 창으로 열기
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PDF Viewer -->
+    <div class="card">
+      <div class="card-body p-3 p-md-4">
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
+          <div>
+            <h5 class="fw-semibold mb-1">첨부 PDF 열람</h5>
+            <div class="muted">모바일에서도 페이지 내에서 바로 열람하도록 구성(환경에 따라 새 뷰어로 전환될 수 있음)</div>
+          </div>
+
+          <div class="no-print d-flex gap-2">
+            <button class="btn btn-outline-secondary btn-sm" type="button" onclick="toggleFullscreenPdf()">
+              크게 보기
+            </button>
+          </div>
+        </div>
+
+        <div id="pdfWrap" class="pdf-wrap">
+          <iframe
+            id="pdfFrame"
+            src="https://seolhopro.mycafe24.com/sogori/sogori334_20260214.pdf#page=1&zoom=page-width"
+            title="토지경계면 분쟁 사진자료 PDF">
+          </iframe>
+        </div>
+
+        <div class="muted mt-3">
+          * iOS Safari에서 임베드가 제한되는 경우가 있어, 상단 <b>PDF 열기</b> 버튼을 함께 제공했습니다.
+        </div>
+      </div>
+    </div>
+
+    <footer class="text-center muted mt-4">
+      © 제출용 자료 열람 페이지
+    </footer>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // 제출일자 기본값(오늘 날짜) 자동 채우기 (사용자 기기 기준)
+    (function initDate(){
+      const el = document.getElementById('submitDate');
+      if (!el.value) {
+        const d = new Date();
+        const yyyy = d.getFullYear();
+        const mm = String(d.getMonth()+1).padStart(2,'0');
+        const dd = String(d.getDate()).padStart(2,'0');
+        el.value = `${yyyy}-${mm}-${dd}`;
+      }
+    })();
+
+    // PDF 크게 보기(간단 풀스크린 토글)
+    function toggleFullscreenPdf(){
+      const wrap = document.getElementById('pdfWrap');
+      if (!document.fullscreenElement) {
+        wrap.requestFullscreen?.();
+      } else {
+        document.exitFullscreen?.();
+      }
+    }
+  </script>
+</body>
+</html>
