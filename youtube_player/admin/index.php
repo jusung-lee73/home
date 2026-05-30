@@ -4,7 +4,7 @@ $videos = db()->query('SELECT * FROM yt_videos ORDER BY sort_order ASC, id DESC'
 $csrf=csrf_token(); $base=base_url();
 ?>
 <!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>영상 관리자</title><link rel="stylesheet" href="../assets/admin.css"></head><body>
-<nav><strong>영상 관리자</strong><span><a href="settings.php">환경설정</a><a href="../index.php" target="_blank">사용자화면</a><a href="logout.php">로그아웃</a></span></nav>
+<nav><strong>영상 관리자</strong><span><a href="settings.php">🛠환경설정</a><a href="../index.php" target="_blank">👤사용자화면</a><a href="logout.php">로그아웃</a></span></nav>
 <main class="container">
 <section class="panel"><h2>영상 등록/수정</h2>
 <form method="post" action="save.php" class="form"><input type="hidden" name="csrf" value="<?=h($csrf)?>"><input type="hidden" name="id" id="id">
