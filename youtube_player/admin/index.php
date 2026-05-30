@@ -17,8 +17,39 @@ $csrf=csrf_token(); $base=base_url();
 <button>저장</button><button type="button" onclick="resetForm()" class="ghost">새로 입력</button></form></section>
 <section class="panel"><h2>등록된 영상</h2><div class="table-wrap"><table><thead><tr><th>순서</th><th>제목</th><th>영상ID</th><th>PPT 연결주소</th><th>상태</th><th>관리</th></tr></thead><tbody>
 <?php foreach($videos as $v): $url=$base.'/play.php?code='.rawurlencode($v['slug']); ?>
-<tr><td><?=h((string)$v['sort_order'])?></td><td><?=h($v['title'])?></td><td><?=h($v['youtube_id'])?></td><td><input class="copy" value="<?=h($url)?>" readonly onclick="this.select();navigator.clipboard?.writeText(this.value)"></td><td><?=((int)$v['is_active']===1?'사용':'숨김')?></td><td><button onclick='editVideo(<?=json_encode($v, JSON_UNESCAPED_UNICODE|JSON_HEX_TAG|JSON_HEX_APOS|JSON_HEX_AMP|JSON_HEX_QUOT)?>)'>수정</button><form method="post" action="delete.php" onsubmit="return confirm('삭제할까요?')" style="display:inline"><input type="hidden" name="csrf" value="<?=h($csrf)?>"><input type="hidden" name="id" value="<?=h((string)$v['id'])?>"><button class="danger">삭제</button></form></td></tr>
+<tr><td><?=h((string)$v['sort_order'])?></td><td><?=h($v['title'])?></td><td><?=h($v['youtube_id'])?></td><td>
+  <div class="copy-wrap">
+    <input class="copy"
+           value="<?=h($url)?>"
+           readonly
+           onclick="this.select()">
+
+    <button
+      type="button"
+      class="copy-btn"
+      data-url="<?=h($url)?>">
+      URL복사
+    </button>
+  </div>
+</td>
+<td><?=((int)$v['is_active']===1?'사용':'숨김')?></td>
+<td><button onclick='editVideo(<?=json_encode($v, JSON_UNESCAPED_UNICODE|JSON_HEX_TAG|JSON_HEX_APOS|JSON_HEX_AMP|JSON_HEX_QUOT)?>)'>수정</button><form method="post" action="delete.php" onsubmit="return confirm('삭제할까요?')" style="display:inline"><input type="hidden" name="csrf" value="<?=h($csrf)?>"><input type="hidden" name="id" value="<?=h((string)$v['id'])?>"><button class="danger">삭제</button></form></td></tr>
 <?php endforeach; ?></tbody></table></div></section>
 </main><script>
 function editVideo(v){id.value=v.id;title.value=v.title;youtube_url.value=v.youtube_url;slug.value=v.slug;sort_order.value=v.sort_order;description.value=v.description||'';is_active.checked=String(v.is_active)==='1';scrollTo({top:0,behavior:'smooth'});}function resetForm(){document.querySelector('.form').reset();id.value='';is_active.checked=true;}
+</script>
+<script>
+document.querySelectorAll('.copy-btn').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    const url = btn.dataset.url;
+
+    try {
+      await navigator.clipboard.writeText(url);
+      btn.textContent = '복사완료';
+      setTimeout(() => btn.textContent = 'URL 복사', 1500);
+    } catch (e) {
+      alert('복사에 실패했습니다. 주소를 직접 복사해주세요.');
+    }
+  });
+});
 </script></body></html>
