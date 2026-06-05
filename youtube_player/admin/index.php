@@ -13,7 +13,7 @@ $csrf=csrf_token(); $base=base_url();
 <label>접속코드/슬러그<input name="slug" id="slug" required placeholder="nihss"></label>
 <label>정렬순서<input type="number" name="sort_order" id="sort_order" value="0"></label>
 <label class="wide">설명<textarea name="description" id="description" rows="3"></textarea></label>
-<label class="check"><input type="checkbox" name="is_active" id="is_active" value="1" checked> 사용</label>
+<label class="check"><input type="checkbox" name="is_active" id="is_active" value="1" checked> 사용(노출)</label>
 <button>저장</button><button type="button" onclick="resetForm()" class="ghost">새로 입력</button></form></section>
 <section class="panel"><h2>등록된 영상</h2><div class="table-wrap"><table><thead><tr><th>순서</th><th>제목</th><th>영상ID</th><th>PPT 연결주소</th><th>상태</th><th>관리</th></tr></thead><tbody>
 <?php foreach($videos as $v): $url=$base.'/play.php?code='.rawurlencode($v['slug']); ?>
@@ -32,7 +32,7 @@ $csrf=csrf_token(); $base=base_url();
     </button>
   </div>
 </td>
-<td><?=((int)$v['is_active']===1?'사용':'숨김')?></td>
+<td><?=((int)$v['is_active']===1?'사용(노출)':'미사용(숨김)')?></td>
 <td><button onclick='editVideo(<?=json_encode($v, JSON_UNESCAPED_UNICODE|JSON_HEX_TAG|JSON_HEX_APOS|JSON_HEX_AMP|JSON_HEX_QUOT)?>)'>수정</button><form method="post" action="delete.php" onsubmit="return confirm('삭제할까요?')" style="display:inline"><input type="hidden" name="csrf" value="<?=h($csrf)?>"><input type="hidden" name="id" value="<?=h((string)$v['id'])?>"><button class="danger">삭제</button></form></td></tr>
 <?php endforeach; ?></tbody></table></div></section>
 </main><script>

@@ -30,7 +30,6 @@ if (count($videos) === 1) {
     <p class="eyebrow"><?=h($eyebrow)?></p>
 <h1><?=h($title)?></h1>
 <p><?=h($subtitle)?></p>
-    <p>아래 영상을 선택시 바로 재생됩니다.</p>
   </div>
 
   <a href="admin/login.php" class="admin-btn">
